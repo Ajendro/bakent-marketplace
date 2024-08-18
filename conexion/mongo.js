@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
+require('dotenv').config(); // Asegúrate de tener dotenv instalado para usar variables de entorno
 
-// Conectar a la base de datos
-mongoose.connect('mongodb+srv://jairalejandromerchan:123jair@marketplace.igqus.mongodb.net/marketplace?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const dbURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/marketplace'; // Usa la variable de entorno o la URI local por defecto
 
-// Manejar eventos de conexión
+mongoose.connect(dbURI);
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error de conexión a la base de datos:'));
 db.once('open', () => {
